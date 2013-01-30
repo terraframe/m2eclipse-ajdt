@@ -3,10 +3,10 @@
    <description>
       Maven Integration for AJDT
    </description>
-   <feature url="features/org.maven.ide.eclipse.ajdt.feature_0.13.0.qualifier.jar" id="org.maven.ide.eclipse.ajdt.feature" version="0.13.0.qualifier">
+   <feature url="features/org.maven.ide.eclipse.ajdt.feature_0.14.0.qualifier.jar" id="org.maven.ide.eclipse.ajdt.feature" version="0.14.0.qualifier">
       <category name="m2eclipse-ajdt"/>
    </feature>
-   <feature url="features/org.maven.ide.eclipse.ajdt.feature.source_0.13.0.qualifier.jar" id="org.maven.ide.eclipse.ajdt.feature.source" version="0.13.0.qualifier">
+   <feature url="features/org.maven.ide.eclipse.ajdt.feature.source_0.14.0.qualifier.jar" id="org.maven.ide.eclipse.ajdt.feature.source" version="0.14.0.qualifier">
       <category name="m2eclipse-ajdt"/>
    </feature>
    <category-def name="m2eclipse-ajdt" label="Maven Integration for Eclipse AJDT Integration">
