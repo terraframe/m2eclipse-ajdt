@@ -9,8 +9,11 @@
 package org.maven.ide.eclipse.ajdt;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecution;
 import org.eclipse.ajdt.core.AspectJCorePreferences;
 import org.eclipse.ajdt.core.AspectJPlugin;
@@ -18,6 +21,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.configurator.ProjectConfigurationRequest;
@@ -38,7 +43,21 @@ import org.slf4j.LoggerFactory;
  * @author Eugene Kuleshov
  */
 public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
+  private static final String SRC_MAIN_ASPECT = "src/main/aspect";
+
   private static final Logger log = LoggerFactory.getLogger(AjdtProjectConfigurator.class);
+
+  private static final String GOAL_COMPILE = "compile";
+
+  private static final String GOAL_TESTCOMPILE = "testCompile";
+
+  public static final String COMPILER_PLUGIN_ARTIFACT_ID = "aspectj-maven-plugin";
+
+  public static final String COMPILER_PLUGIN_GROUP_ID = "org.codehaus.mojo";
+
+  protected static final List<String> SOURCES = Arrays.asList("1.1,1.2,1.3,1.4,1.5,5,1.6,6,1.7,7".split(",")); //$NON-NLS-1$ //$NON-NLS-2$
+
+  protected static final List<String> TARGETS = Arrays.asList("1.1,1.2,1.3,1.4,jsr14,1.5,5,1.6,6,1.7,7".split(",")); //$NON-NLS-1$ //$NON-NLS-2$
 
   public void configure(ProjectConfigurationRequest request, IProgressMonitor monitor) throws CoreException {
     IProject project = request.getProject();
@@ -71,7 +90,106 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       }
     }
   }
+  
+  protected List<MojoExecution> getCompilerMojoExecutions(ProjectConfigurationRequest request, IProgressMonitor monitor)
+      throws CoreException {
+    return request.getMavenProjectFacade().getMojoExecutions(COMPILER_PLUGIN_GROUP_ID, COMPILER_PLUGIN_ARTIFACT_ID,
+        monitor, GOAL_COMPILE, GOAL_TESTCOMPILE);
+  }
 
+  
+  protected boolean isTestCompileExecution(MojoExecution execution) {
+    return GOAL_TESTCOMPILE.equals(execution.getGoal());
+  }
+  protected boolean isCompileExecution(MojoExecution execution) {
+    return GOAL_COMPILE.equals(execution.getGoal());
+  }
+
+  private IPath[] toPaths(String[] values) {
+    if(values == null) {
+      return new IPath[0];
+    }
+    IPath[] paths = new IPath[values.length];
+    for(int i = 0; i < values.length; i++ ) {
+      if(values[i] != null && !"".equals(values[i].trim())) {
+        paths[i] = new Path(values[i]);
+      }
+    }
+    return paths;
+  }
+
+  
+  // copied from superclass, but uses AJ source filters
+  public void configureRawClasspath(ProjectConfigurationRequest request, IClasspathDescriptor classpath,
+      IProgressMonitor monitor) throws CoreException {
+    SubMonitor mon = SubMonitor.convert(monitor, 6);
+
+    IMavenProjectFacade facade = request.getMavenProjectFacade();
+    
+    IPath[] inclusion = new IPath[0];
+    IPath[] exclusion = new IPath[0];
+
+    // not handling test folders
+//    IPath[] inclusionTest = new IPath[0];
+//    IPath[] exclusionTest = new IPath[0];
+
+    // not doing anything with encoding right now
+//    String mainSourceEncoding = null;
+//    String testSourceEncoding = null;
+
+    MavenSession mavenSession = request.getMavenSession();
+
+    List<MojoExecution> executions = getCompilerMojoExecutions(request, mon.newChild(1));
+    for(MojoExecution compile : executions) {
+      if(isCompileExecution(compile)) {
+//        mainSourceEncoding = maven.getMojoParameterValue(mavenSession, compile, "encoding", String.class); //$NON-NLS-1$
+        try {
+          inclusion = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
+              "includes", String[].class)); //$NON-NLS-1$
+        } catch(CoreException ex) {
+          log.error("Failed to determine compiler inclusions, assuming defaults", ex);
+        }
+        try {
+          exclusion = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
+              "excludes", String[].class)); //$NON-NLS-1$
+        } catch(CoreException ex) {
+          log.error("Failed to determine compiler exclusions, assuming defaults", ex);
+        }
+      }
+
+      // we are not supporting test folders
+//      if(isTestCompileExecution(compile)) {
+//        testSourceEncoding = maven.getMojoParameterValue(mavenSession, compile, "encoding", String.class); //$NON-NLS-1$
+//        try {
+//          inclusionTest = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
+//              "testIncludes", String[].class)); //$NON-NLS-1$
+//        } catch(CoreException ex) {
+//          log.error("Failed to determine compiler test inclusions, assuming defaults", ex);
+//        }
+//        try {
+//          exclusionTest = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
+//              "testExcludes", String[].class)); //$NON-NLS-1$
+//        } catch(CoreException ex) {
+//          log.error("Failed to determine compiler test exclusions, assuming defaults", ex);
+//        }
+//      }
+    }
+
+
+    assertHasNature(request.getProject(), JavaCore.NATURE_ID);
+
+    for(MojoExecution mojoExecution : getMojoExecutions(request, monitor)) {
+      File[] sources = getSourceFolders(request, mojoExecution);
+
+      for(File source : sources) {
+        IPath sourcePath = getFullPath(facade, source);
+
+        if(sourcePath != null) {
+          classpath.addSourceEntry(sourcePath, facade.getOutputLocation(), inclusion, exclusion, true);
+        }
+      }
+    }
+  }
   protected File[] getSourceFolders(ProjectConfigurationRequest request, MojoExecution mojoExecution)
       throws CoreException {
 
@@ -89,7 +207,7 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       }
     } else {
       log.info("No aspect source folder found. Failing back to 'src/main/aspect'");
-      value = new File("src/main/aspect");
+      value = new File(SRC_MAIN_ASPECT);
     }
     return sourceFolders;
   }

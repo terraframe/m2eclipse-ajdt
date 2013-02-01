@@ -7,7 +7,7 @@
          point="org.eclipse.m2e.core.projectConfigurators">
       <configurator
             class="org.maven.ide.eclipse.ajdt.AjdtProjectConfigurator:1"
-            id="org.maven.ide.eclipse.ajdt"
+            id="org.maven.ide.eclipse.ajdt.configurator"
             name="AJDT">
       </configurator>
    </extension>

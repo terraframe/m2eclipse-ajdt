@@ -13,7 +13,7 @@
 			</pluginExecutionFilter>
 			<action>
 				<configurator>
-					<id>org.maven.ide.eclipse.ajdt</id>
+					<id>org.maven.ide.eclipse.ajdt.configurator</id>
 				</configurator>
 			</action>
 		</pluginExecution>
