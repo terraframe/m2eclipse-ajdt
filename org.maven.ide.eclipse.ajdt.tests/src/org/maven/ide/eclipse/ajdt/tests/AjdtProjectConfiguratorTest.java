@@ -59,6 +59,30 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
     }
     super.tearDown();
   }
+
+  public void testSkipping_import() throws IOException, CoreException, InterruptedException {
+    ResolverConfiguration configuration = new ResolverConfiguration();
+    IProject project = importProject("projects/p05-skip/pom.xml", configuration);
+    
+    waitForJobsToComplete();
+    
+    MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(project, monitor);
+    
+    assertTrue("Expected no AJDT nature", !project.hasNature(AspectJPlugin.ID_NATURE));
+
+  }
+
+  public void testNoExecutions_import() throws IOException, CoreException, InterruptedException {
+    ResolverConfiguration configuration = new ResolverConfiguration();
+    IProject project = importProject("projects/p04-noExecutions/pom.xml", configuration);
+    
+    waitForJobsToComplete();
+    
+    MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(project, monitor);
+    
+    assertTrue("Expected no AJDT nature", !project.hasNature(AspectJPlugin.ID_NATURE));
+
+  }
   
   // TODOO disabled
   public void testSimple01_import() throws IOException, CoreException, InterruptedException {

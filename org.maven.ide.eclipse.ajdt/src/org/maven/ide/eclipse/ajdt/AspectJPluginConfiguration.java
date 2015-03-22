@@ -88,7 +88,7 @@ class AspectJPluginConfiguration {
     return result;
   }
 
-  private String getElementValue(Xpp3Dom parent, String childName) {
+  private static String getElementValue(Xpp3Dom parent, String childName) {
     Xpp3Dom element = parent.getChild(childName);
     if(element == null ) {
       return null;
@@ -129,11 +129,7 @@ class AspectJPluginConfiguration {
   static boolean isAspectJProject(MavenProject mavenProject, IProject project) {
     Plugin plugin = getAspectJPlugin(mavenProject);
 
-    if(plugin != null && plugin.getExecutions() != null && !plugin.getExecutions().isEmpty()) {
-      return true;
-    }
-
-    return false;
+    return executionsAreEmpty(plugin) || skipIsConfigured(plugin);
 
     // projects without aspects can legitimately use aspects defined somewhere else
   }
@@ -147,6 +143,29 @@ class AspectJPluginConfiguration {
   
   private static Plugin getAspectJPlugin(MavenProject mavenProject) {
     return mavenProject.getPlugin("org.codehaus.mojo:aspectj-maven-plugin");
+  }
+
+  private static boolean skipIsConfigured(Plugin plugin) {
+
+    if (plugin != null && plugin.getConfiguration() != null) {
+      String skip = getElementValue((Xpp3Dom) plugin.getConfiguration(), "skip");
+
+      if ("true".equals(skip)) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+	  return false;
+  }
+
+  private static boolean executionsAreEmpty(Plugin plugin) {
+
+    if(plugin != null && plugin.getExecutions() != null && !plugin.getExecutions().isEmpty()) {
+      return true;
+    }
+
+    return false;
   }
 
 }
