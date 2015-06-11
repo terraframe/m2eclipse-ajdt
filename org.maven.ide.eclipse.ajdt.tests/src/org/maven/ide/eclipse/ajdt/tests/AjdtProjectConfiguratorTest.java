@@ -10,13 +10,11 @@ package org.maven.ide.eclipse.ajdt.tests;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.ajdt.core.AspectJCorePreferences;
 import org.eclipse.ajdt.core.AspectJPlugin;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -151,8 +149,8 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
     assertEquals(sources.toString(), 4, sources.size());
     assertEquals(project.getFolder("src/main/java").getFullPath(), sources.get(0).getPath());
     assertEquals(project.getFolder("src/test/java").getFullPath(), sources.get(1).getPath());
-    assertEquals(project.getFolder("src/main/aspect").getFullPath(), sources.get(2).getPath());
-    assertEquals(project.getFolder("src/test/aspect").getFullPath(), sources.get(3).getPath());
+    assertEquals(project.getFolder("src/test/aspect").getFullPath(), sources.get(2).getPath());
+    assertEquals(project.getFolder("src/main/aspect").getFullPath(), sources.get(3).getPath());
     
     // now check exclusion and inclusions
     System.out.println("Inclusions: " + sources.get(3).getInclusionPatterns());
@@ -181,7 +179,7 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
     MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(projects[0], monitor);
     MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(projects[1], monitor);
     MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(projects[2], monitor);
-
+    MavenPlugin.getProjectConfigurationManager().updateProjectConfiguration(projects[3], monitor);
 
     assertTrue("Expected AJ nature", projects[1].hasNature(AspectJPlugin.ID_NATURE));
     assertTrue("Expected AJ nature", projects[2].hasNature(AspectJPlugin.ID_NATURE));
@@ -194,14 +192,13 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
     String[] project3InPath = AspectJCorePreferences.getResolvedProjectInpath(projects[3]);
     String[] project3AspectPath = AspectJCorePreferences.getResolvedProjectAspectPath(projects[3]);
     
-    assertTrue("Invalid aspect path for project 'depa': " + project1InPath[0], project1InPath[0].contains("/depi/target/classes"));
-    assertTrue("Invalid aspect path for project 'depa': " + project1InPath[0], project1InPath[0].contains("junit-3.8.jar"));
+    assertTrue("Invalid inpath for project 'depa': " + project1InPath[0], project1InPath[0].contains("/depi/target/classes"));
+    assertTrue("Invalid inpath for project 'depa': " + project1InPath[0], project1InPath[0].contains("junit-4.12.jar"));
     assertEquals("Invalid aspect path for project 'aspect'", "", project1AspectPath[0]);
     
     assertEquals("Invalid in path for project 'depa'", "", project2InPath[0]);
     // note: this is actually a bug in ajdt that the aspect path contains target/classes twice this is because the aspect folder has two source folders whose output folders go to target/classes 
-    assertTrue("Invalid aspect path for project 'depa': " + project2AspectPath[0], project2AspectPath[0].contains("/aspect/target/classes:"));
-    assertTrue("Invalid aspect path for project 'depa': " + project2AspectPath[0], project2AspectPath[0].contains("junit-3.8.jar"));
+    assertTrue("Invalid aspect path for project 'depa': " + project2AspectPath[0], project2AspectPath[0].contains("junit-4.12.jar"));
     
     assertEquals("Invalid in path for project 'depi'", "", project3InPath[0]);
     assertEquals("Invalid aspect path for project 'depi'", "", project3AspectPath[0]);
