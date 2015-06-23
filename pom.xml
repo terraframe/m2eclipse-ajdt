@@ -54,6 +54,13 @@
 		<!-- <m2eclipse-core.site>0.10.2/S/${m2eclipse-core.version}</m2eclipse-core.site> -->
 		<target.platform>m2e-e37</target.platform>
 		<!-- <m2e.site-compressed>http://repository.sonatype.org/service/local/repositories/forge-sites/content-compressed/</m2e.site-compressed> -->
+
+		<!-- Signing -->
+		<signing.skip>true</signing.skip>
+		<signing.alias>pivotal</signing.alias>
+		<signing.keystore>~/.keytool/pivotal.jks</signing.keystore>
+
+
 	</properties>
 
 	<modules>
@@ -67,12 +74,14 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>maven-osgi-packaging-plugin</artifactId>
@@ -81,8 +90,6 @@
 					<deployableFeature>true</deployableFeature>
 				</configuration>
 			</plugin>
-
-
 
 			<plugin>
 				<groupId>org.sonatype.tycho</groupId>
@@ -111,10 +118,35 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>sign</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>${signing.skip}</skip>
+					<alias>${signing.alias}</alias>
+					<keystore>${signing.keystore}</keystore>
+					<storepass>${signing.store.password}</storepass>
+					<keypass>${signing.key.password}</keypass>
+					<arguments>
+						<argument>-sigalg</argument><argument>SHA1withRSA</argument>
+						<argument>-digestalg</argument><argument>SHA1</argument>
+					</arguments>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<profiles>
+
 		<profile>
 			<id>sun-jvm</id>
 			<activation>
@@ -127,6 +159,7 @@
 				<tycho.test.jvmArgs>-Xmx800m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
 			</properties>
 		</profile>
+
 		<profile>
 			<id>osx</id>
 			<activation>
