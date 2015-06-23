@@ -29,8 +29,7 @@
 					<failIfNoTests>true</failIfNoTests>
 					<showEclipseLog>true</showEclipseLog>
 					<argLine>${ui.test.vmargs}</argLine>
-					<skip>false</skip>
-					<skipTests>false</skipTests>
+					<skip>${maven.skip.tests}</skip>
 					<testSuite>org.maven.ide.eclipse.ajdt.tests</testSuite>
 					<testClass>org.maven.ide.eclipse.ajdt.tests.AjdtProjectConfiguratorTest</testClass>
 					<explodedBundles>
