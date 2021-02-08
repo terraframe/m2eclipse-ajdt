@@ -27,18 +27,18 @@
 		<repository>
 			<id>indigo</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/kepler</url>
+			<url>http://download.eclipse.org/releases/2020-12</url>
 		</repository>
 
 		<repository>
 			<id>m2e</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/technology/m2e/releases/1.2</url>
+			<url>https://download.eclipse.org/technology/m2e/releases/latest</url>
 		</repository>
 		<repository>
 			<id>ajdt</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/tools/ajdt/43/dev/update</url>
+			<url>https://download.eclipse.org/tools/ajdt/410/dev/update</url>
 		</repository>
 	</repositories>
 
@@ -57,7 +57,7 @@
 	</pluginRepositories>
 
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
+		<tycho-version>2.2.0</tycho-version>
 		<!-- <m2eclipse-core.version>0.10.2.20100623-1649</m2eclipse-core.version> -->
 		<!-- <m2eclipse-core.site>0.10.2/S/${m2eclipse-core.version}</m2eclipse-core.site> -->
 		<target.platform>m2e-e37</target.platform>
@@ -67,8 +67,11 @@
 		<signing.skip>true</signing.skip>
 		<signing.alias>pivotal</signing.alias>
 		<signing.keystore>~/.keytool/pivotal.jks</signing.keystore>
-		
+
 		<maven.skip.tests>false</maven.skip.tests>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<modules>
@@ -121,16 +124,34 @@
 						</artifact>
 					</target>
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
 					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
@@ -153,8 +174,10 @@
 					<storepass>${signing.store.password}</storepass>
 					<keypass>${signing.key.password}</keypass>
 					<arguments>
-						<argument>-sigalg</argument><argument>SHA1withRSA</argument>
-						<argument>-digestalg</argument><argument>SHA1</argument>
+						<argument>-sigalg</argument>
+						<argument>SHA1withRSA</argument>
+						<argument>-digestalg</argument>
+						<argument>SHA1</argument>
 					</arguments>
 				</configuration>
 			</plugin>
