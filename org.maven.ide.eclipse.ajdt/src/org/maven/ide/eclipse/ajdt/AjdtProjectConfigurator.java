@@ -9,6 +9,7 @@
 package org.maven.ide.eclipse.ajdt;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +54,8 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
 
   public static final String COMPILER_PLUGIN_ARTIFACT_ID = "aspectj-maven-plugin";
 
-  public static final String COMPILER_PLUGIN_GROUP_ID = "org.codehaus.mojo";
+  public static final List<String> COMPILER_PLUGIN_GROUP_IDS = Arrays.asList("org.codehaus.mojo", "com.nickwongdev",
+      "com.github.m50d", "se.haleby.aspectj", "io.starter");
 
   protected static final List<String> SOURCES = Arrays.asList("1.1,1.2,1.3,1.4,1.5,5,1.6,6,1.7,7".split(",")); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -90,14 +92,18 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       }
     }
   }
-  
+
   protected List<MojoExecution> getCompilerMojoExecutions(ProjectConfigurationRequest request, IProgressMonitor monitor)
       throws CoreException {
-    return request.getMavenProjectFacade().getMojoExecutions(COMPILER_PLUGIN_GROUP_ID, COMPILER_PLUGIN_ARTIFACT_ID,
-        monitor, GOAL_COMPILE, GOAL_TESTCOMPILE);
+    List<MojoExecution> execs = new ArrayList<>();
+    for(String groupId : COMPILER_PLUGIN_GROUP_IDS) {
+      execs.add(request.getMavenProjectFacade().getMojoExecutions(groupId, COMPILER_PLUGIN_ARTIFACT_ID, monitor,
+          GOAL_COMPILE, GOAL_TESTCOMPILE));
+    }
+    return execs;
   }
 
-  
+
   protected boolean isTestCompileExecution(MojoExecution execution) {
     return GOAL_TESTCOMPILE.equals(execution.getGoal());
   }
@@ -118,14 +124,14 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
     return paths;
   }
 
-  
+
   // copied from superclass, but uses AJ source filters
   public void configureRawClasspath(ProjectConfigurationRequest request, IClasspathDescriptor classpath,
       IProgressMonitor monitor) throws CoreException {
     SubMonitor mon = SubMonitor.convert(monitor, 6);
 
     IMavenProjectFacade facade = request.getMavenProjectFacade();
-    
+
     IPath[] inclusion = new IPath[0];
     IPath[] exclusion = new IPath[0];
 
