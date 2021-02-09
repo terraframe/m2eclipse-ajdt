@@ -33,3 +33,5 @@ mvn release:prepare -DreleaseVersion=0.14.0 -DdevelopmentVersion=0.14.1-SNAPSHOT
 
 # Perform release
 mvn release:perform -Dgoals="clean install"
+```
+Release process does not work yet which might be related to ancient junit version incompatility with latest tycho surefire plugin.
