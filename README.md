@@ -24,3 +24,12 @@ JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn clean package
 ```
 This build produces Eclipse update site to folder `org.maven.ide.eclipse.ajdt.site/target/site`. You can simply copy everything in that directory and host it with
 any http server you want and then install the artifacts from that site with Eclipse.
+
+## Release process
+Create new release by executing:
+```sh
+# Prepare release
+mvn release:prepare -DreleaseVersion=0.14.0 -DdevelopmentVersion=0.14.1-SNAPSHOT
+
+# Perform release
+mvn release:perform -Dgoals="clean install"
