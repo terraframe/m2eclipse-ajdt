@@ -44,6 +44,9 @@
 						<explodedBundle>org.aspectj.weaver</explodedBundle>
 						<explodedBundle>org.aspectj.ajde</explodedBundle>
 					</explodedBundles>
+					<environment>
+						<GTK_IM_MODULE></GTK_IM_MODULE>
+					</environment>
 				</configuration>
 			</plugin>
 		</plugins>
