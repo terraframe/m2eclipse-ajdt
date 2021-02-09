@@ -50,7 +50,7 @@
 			<url>http://repository.springsource.com/maven/bundles/release</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/joker1/m2eclipse-ajdt</developerConnection>
 	</scm>
@@ -94,6 +94,10 @@
 				<version> 2.5.3</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<configuration>
+						<preparationGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</preparationGoals>
+						<completionGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</completionGoals>
+					</configuration>
 				</configuration>
 			</plugin>
 			<plugin>
