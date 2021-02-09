@@ -35,3 +35,8 @@ mvn release:prepare -DreleaseVersion=0.14.0 -DdevelopmentVersion=0.14.1-SNAPSHOT
 mvn release:perform -Dgoals="clean install"
 ```
 Release process does not work yet which might be related to ancient junit version incompatility with latest tycho surefire plugin.
+
+## Installation
+You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
+Eclipse update site URL: http://repo.t5.fi/public/eclipse/m2eclipse-ajdt
+This update site is provided on best-effort basis but we do use it internally and availability is generally good.
