@@ -7,3 +7,4 @@ target/
 */*.iml
 *.iml
 *.releaseBackup
+release.properties
