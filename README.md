@@ -1,15 +1,15 @@
 # m2eclipse-ajdt
 M2E Configurer for AJDT
 
-This plugin provides support for Eclipse build procedure in maven projects that use aspectj:compile.
+This plugin provides support for Eclipse build procedure in maven projects that use `aspectj:compile`.
 Without this plugin you may see warnings such as "Plugin execution not covered by lifecycle configuration: org.codehaus.mojo.aspectj-maven-plugin ..."
 
-This plugin supports multiple different forked versions of aspectj-maven-plugin. Following groupId values for this plugin are recognized:
- * org.codehaus.mojo
- * com.nickwongdev
- * com.github.m50d
- * se.haleby.aspectj
- * io.starter
+This plugin supports multiple different forked versions of aspectj-maven-plugin. Following `groupId` values for this plugin are recognized:
+ * `org.codehaus.mojo`
+ * `com.nickwongdev`
+ * `com.github.m50d`
+ * `se.haleby.aspectj`
+ * `io.starter`
 
 I need this plugin personally and therefore I plan to maintain it for personal purposes.
 
