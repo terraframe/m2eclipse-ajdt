@@ -142,7 +142,13 @@ class AspectJPluginConfiguration {
   }
   
   private static Plugin getAspectJPlugin(MavenProject mavenProject) {
-    return mavenProject.getPlugin("org.codehaus.mojo:aspectj-maven-plugin");
+    for(String groupId: AjdtProjectConfigurator.COMPILER_PLUGIN_GROUP_IDS) {
+      Plugin plugin = mavenProject.getPlugin(groupId + ":" + AjdtProjectConfigurator.COMPILER_PLUGIN_ARTIFACT_ID);
+      if(plugin != null) {
+        return plugin;
+      }
+    }
+    return null;
   }
 
   private static boolean skipIsConfigured(Plugin plugin) {
