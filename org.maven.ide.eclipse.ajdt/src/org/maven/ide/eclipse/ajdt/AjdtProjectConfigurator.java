@@ -97,7 +97,7 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       throws CoreException {
     List<MojoExecution> execs = new ArrayList<>();
     for(String groupId : COMPILER_PLUGIN_GROUP_IDS) {
-      execs.add(request.getMavenProjectFacade().getMojoExecutions(groupId, COMPILER_PLUGIN_ARTIFACT_ID, monitor,
+      execs.addAll(request.getMavenProjectFacade().getMojoExecutions(groupId, COMPILER_PLUGIN_ARTIFACT_ID, monitor,
           GOAL_COMPILE, GOAL_TESTCOMPILE));
     }
     return execs;

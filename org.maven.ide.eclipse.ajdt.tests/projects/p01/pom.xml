@@ -11,7 +11,7 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.8.6</version>
+      <version>1.9.6</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -23,9 +23,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>aspectj-maven-plugin</artifactId>
-        <version>1.7</version>
+        <groupId>com.nickwongdev</groupId>
+		<artifactId>aspectj-maven-plugin</artifactId>
+		<version>1.12.6</version>
         <executions>
           <execution>
             <id>compile-aspects</id>
