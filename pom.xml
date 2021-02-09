@@ -23,13 +23,11 @@
 			<id>rso</id>
 			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
 		</repository>
-
 		<repository>
-			<id>indigo</id>
+			<id>eclipse-2020-12</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/2020-12</url>
 		</repository>
-
 		<repository>
 			<id>m2e</id>
 			<layout>p2</layout>
@@ -75,17 +73,14 @@
 	</properties>
 
 	<modules>
-		<module>org.maven.ide.eclipse.ajdt.target-platform</module>
 		<module>org.maven.ide.eclipse.ajdt</module>
 		<module>org.maven.ide.eclipse.ajdt.tests</module>
 		<module>org.maven.ide.eclipse.ajdt.feature</module>
 		<module>org.maven.ide.eclipse.ajdt.site</module>
 	</modules>
 
-
 	<build>
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.7</version>
@@ -93,36 +88,27 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>maven-osgi-packaging-plugin</artifactId>
+				<artifactId>tycho-packaging-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
 					<deployableFeature>true</deployableFeature>
 				</configuration>
 			</plugin>
-
 			<plugin>
-				<groupId>org.sonatype.tycho</groupId>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
-					<target>
-						<artifact>
-							<groupId>org.eclipse.m2e</groupId>
-							<artifactId>target-platform</artifactId>
-							<version>${project.version}</version>
-						</artifact>
-					</target>
+					<includePackedArtifacts>true</includePackedArtifacts>
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 					<environments>
 						<environment>
@@ -143,7 +129,6 @@
 					</environments>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -154,7 +139,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jarsigner-plugin</artifactId>
@@ -185,7 +169,6 @@
 	</build>
 
 	<profiles>
-
 		<profile>
 			<id>sun-jvm</id>
 			<activation>
@@ -198,7 +181,6 @@
 				<tycho.test.jvmArgs>-Xmx800m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
 			</properties>
 		</profile>
-
 		<profile>
 			<id>osx</id>
 			<activation>

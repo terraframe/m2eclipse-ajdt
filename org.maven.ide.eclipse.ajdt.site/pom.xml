@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>org.maven.ide.eclipse.ajdt.parent</artifactId>
 		<groupId>org.maven.ide.eclipse.ajdt</groupId>
+		<artifactId>org.maven.ide.eclipse.ajdt.parent</artifactId>
 		<version>0.14.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+        <relativePath>../pom.xml</relativePath>
 	</parent>
 	
 	<packaging>eclipse-update-site</packaging>
@@ -36,10 +36,8 @@
 				<configuration>
 					<metadataRepositoryName>Maven Integration for Eclipse Settings</metadataRepositoryName>
 					<artifactRepositoryName>Maven Integration for Eclipse Settings</artifactRepositoryName>
-
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -58,14 +56,12 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
 	<profiles>
 		<profile>
 			<id>upload-site</id>
-			
 			<build>
 				<plugins>
 					<plugin>
@@ -78,12 +74,9 @@
 								<phase>deploy</phase>
 								<configuration>
 									<target>
-
 										<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 										<taskdef resource="org/springframework/build/aws/ant/antlib.xml" />
-
 										<s3 accessKey="${dist.accessKey}" secretKey="${dist.secretKey}">
-
 											<delete bucketName="${dist.bucket}">
 												<fileset dir="${dist.path}">
 													<include name="site.xml" />
@@ -93,7 +86,6 @@
 													<include name="features/**" />
 												</fileset>
 											</delete>
-
 											<upload bucketName="${dist.bucket}" toDir="${dist.path}" publicRead="true">
 												<fileset dir="${project.build.directory}/site">
 													<include name="**/*" />
@@ -101,9 +93,7 @@
 													<include name="*.zip" />
 												</fileset>
 											</upload>
-
 										</s3>
-
 									</target>
 								</configuration>
 								<goals>
@@ -132,7 +122,6 @@
 				</plugins>
 			</build>
 		</profile>
-
 		<profile>
 			<id>publish-site</id>
 			<build>

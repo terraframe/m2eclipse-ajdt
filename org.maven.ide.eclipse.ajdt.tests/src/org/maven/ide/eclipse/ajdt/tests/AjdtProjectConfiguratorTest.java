@@ -8,6 +8,8 @@
 
 package org.maven.ide.eclipse.ajdt.tests;
 
+import static junit.framework.Assert.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
   
   private Display display;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
       
@@ -49,7 +51,7 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
 //    mavenConfiguration.setGoalOnImport("process-test-classes");
   }
 
-  protected void tearDown() throws Exception {
+  public void tearDown() throws Exception {
 //    mavenConfiguration.setGoalOnImport(origGoalsOnImport);
 //
     if (display != null) {
@@ -197,7 +199,7 @@ public class AjdtProjectConfiguratorTest extends AbstractMavenProjectTestCase {
     assertEquals("Invalid aspect path for project 'aspect'", "", project1AspectPath[0]);
     
     assertEquals("Invalid in path for project 'depa'", "", project2InPath[0]);
-    // note: this is actually a bug in ajdt that the aspect path contains target/classes twice this is because the aspect folder has two source folders whose output folders go to target/classes 
+    // note: this is actually a bug in ajdt that the aspect path contains target/classes twice this is because the aspect folder has two source folders whose output folders go to target/classes
     assertTrue("Invalid aspect path for project 'depa': " + project2AspectPath[0], project2AspectPath[0].contains("junit-4.12.jar"));
     
     assertEquals("Invalid in path for project 'depi'", "", project3InPath[0]);

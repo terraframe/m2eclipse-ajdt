@@ -14,9 +14,11 @@
 		<groupId>org.maven.ide.eclipse.ajdt</groupId>
 		<artifactId>org.maven.ide.eclipse.ajdt.parent</artifactId>
 		<version>0.14.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.maven.ide.eclipse.ajdt.feature</artifactId>
+	
 	<packaging>eclipse-feature</packaging>
 
 	<name>Maven Integration for AJDT (Optional)</name>
@@ -31,67 +33,15 @@
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>maven-osgi-packaging-plugin</artifactId>
+				<artifactId>tycho-packaging-plugin</artifactId>
 				<version>${tycho-version}</version>
-				<configuration>
-					<deployableFeature>true</deployableFeature>
-				</configuration>
 			</plugin>
-
-
-
-			<plugin>
-				<groupId>org.sonatype.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<resolver>p2</resolver>
-					<target>
-						<artifact>
-							<groupId>org.eclipse.m2e</groupId>
-							<artifactId>target-platform</artifactId>
-							<version>${project.version}</version>
-						</artifact>
-					</target>
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
-					<environments>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
-
 
 	<profiles>
 		<profile>
 			<id>publish-site</id>
-
 			<build>
 				<plugins>
 					<plugin>
@@ -107,7 +57,6 @@
 								</goals>
 								<configuration>
 									<file>${project.build.directory}/${project.artifactId}-${project.version}-site.zip</file>
-
 									<serverId>forge-releases</serverId>
 									<repositoryUrl>${m2e.site-compressed}</repositoryUrl>
 									<repositoryPath>m2eclipse-ajdt/${unqualifiedVersion}/N/${unqualifiedVersion}.${buildQualifier}</repositoryPath>
