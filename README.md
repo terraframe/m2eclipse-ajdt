@@ -17,7 +17,7 @@ If you find this plugin useful, you are free to use and distribute it according 
 
 ## Build
 Use Java version 11 or later to build this plugin.
-```java
+```sh
 mvn clean package
 # or use specific java installation
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn clean package
