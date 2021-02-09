@@ -50,6 +50,10 @@
 			<url>http://repository.springsource.com/maven/bundles/release</url>
 		</pluginRepository>
 	</pluginRepositories>
+	
+	<scm>
+		<developerConnection>scm:git:ssh://git@github.com/joker1/m2eclipse-ajdt</developerConnection>
+	</scm>
 
 	<properties>
 		<tycho-version>2.2.0</tycho-version>
