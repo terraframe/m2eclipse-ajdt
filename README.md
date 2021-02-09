@@ -39,6 +39,6 @@ Release process does not work yet which might be related to ancient junit versio
 ## Installation
 You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
 
-Eclipse update site URL: http://repo.t5.fi/public/eclipse/m2eclipse-ajdt
+Eclipse update site URL: https://repo.t5.fi/public/eclipse/m2eclipse-ajdt
 
 This update site is provided on best-effort basis but we do use it internally and availability is generally good.
