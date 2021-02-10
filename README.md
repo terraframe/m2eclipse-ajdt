@@ -40,7 +40,6 @@ mvn release:prepare -DreleaseVersion=0.14.1 -Dtag=m2eclipse-ajdt-0.14.1 -Ddevelo
 # Perform release
 mvn release:perform -Dgoals="clean install"
 ```
-Release process does not work currently because there are unresolved complexities with Tycho.
 
 ## Installation
 You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
