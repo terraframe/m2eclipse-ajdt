@@ -3,11 +3,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests Plug-in
 Bundle-SymbolicName: org.maven.ide.eclipse.ajdt.tests
-Bundle-Version: 0.14.0.qualifier
+Bundle-Version: 0.14.0
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.junit,
  org.eclipse.m2e.core,
- org.maven.ide.eclipse.ajdt;bundle-version="0.14.0",
+ org.maven.ide.eclipse.ajdt,
  org.maven.ide.eclipse.ajdt,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
