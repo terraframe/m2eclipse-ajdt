@@ -41,6 +41,8 @@ mvn release:prepare -DreleaseVersion=0.14.2 -Dtag=m2eclipse-ajdt-0.14.2 -Ddevelo
 mvn release:perform -Dgoals="clean install"
 ```
 
+`release:perform` does not work yet (unresolved javadoc issues).
+
 ## Installation
 You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
 
