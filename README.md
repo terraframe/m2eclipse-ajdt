@@ -25,6 +25,12 @@ JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 mvn clean package
 This build produces Eclipse update site to folder `org.maven.ide.eclipse.ajdt.site/target/site`. You can simply copy everything in that directory and host it with
 any http server you want and then install the artifacts from that site with Eclipse.
 
+## Tests
+Execute integration tests with following command.
+```sh
+mvn clean integration-test
+```
+
 ## Release process
 Create new release by executing:
 ```sh
@@ -34,6 +40,7 @@ mvn release:prepare -DreleaseVersion=0.14.0 -DdevelopmentVersion=0.14.1-SNAPSHOT
 # Perform release
 mvn release:perform -Dgoals="clean install"
 ```
+Release process does not work currently because there are unresolved complexities with Tycho.
 
 ## Installation
 You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
