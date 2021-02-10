@@ -37,13 +37,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Configures AJDT project according to aspectj-maven-plugin configuration from pom.xml. Work in progress, most of
  * aspectj-maven-plugin configuration parameters is not supported yet.
- * 
- * @see http://mojo.codehaus.org/aspectj-maven-plugin/compile-mojo.html
- * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=160393
+ *
+ * @see "http://mojo.codehaus.org/aspectj-maven-plugin/compile-mojo.html"
+ * @see "https://bugs.eclipse.org/bugs/show_bug.cgi?id=160393"
  * @author Igor Fedorenko
  * @author Eugene Kuleshov
  */
 public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
+
   private static final String SRC_MAIN_ASPECT = "src/main/aspect";
 
   private static final Logger log = LoggerFactory.getLogger(AjdtProjectConfigurator.class);
@@ -61,12 +62,14 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
 
   protected static final List<String> TARGETS = Arrays.asList("1.1,1.2,1.3,1.4,jsr14,1.5,5,1.6,6,1.7,7".split(",")); //$NON-NLS-1$ //$NON-NLS-2$
 
+  @Override
   public void configure(ProjectConfigurationRequest request, IProgressMonitor monitor) throws CoreException {
     IProject project = request.getProject();
 
     configureNature(project, monitor);
   }
 
+  @Override
   public void configureClasspath(IMavenProjectFacade facade, IClasspathDescriptor classpath, IProgressMonitor monitor)
       throws CoreException {
     IProject project = facade.getProject();
@@ -103,10 +106,10 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
     return execs;
   }
 
-
   protected boolean isTestCompileExecution(MojoExecution execution) {
     return GOAL_TESTCOMPILE.equals(execution.getGoal());
   }
+
   protected boolean isCompileExecution(MojoExecution execution) {
     return GOAL_COMPILE.equals(execution.getGoal());
   }
@@ -124,8 +127,8 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
     return paths;
   }
 
-
   // copied from superclass, but uses AJ source filters
+  @Override
   public void configureRawClasspath(ProjectConfigurationRequest request, IClasspathDescriptor classpath,
       IProgressMonitor monitor) throws CoreException {
     SubMonitor mon = SubMonitor.convert(monitor, 6);
@@ -150,14 +153,14 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       if(isCompileExecution(compile)) {
 //        mainSourceEncoding = maven.getMojoParameterValue(mavenSession, compile, "encoding", String.class); //$NON-NLS-1$
         try {
-          inclusion = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
-              "includes", String[].class)); //$NON-NLS-1$
+          inclusion = toPaths(
+              maven.getMojoParameterValue(mavenSession, compile, "includes", String[].class)); //$NON-NLS-1$
         } catch(CoreException ex) {
           log.error("Failed to determine compiler inclusions, assuming defaults", ex);
         }
         try {
-          exclusion = toPaths(maven.getMojoParameterValue(request.getMavenSession(), compile,
-              "excludes", String[].class)); //$NON-NLS-1$
+          exclusion = toPaths(
+              maven.getMojoParameterValue(mavenSession, compile, "excludes", String[].class)); //$NON-NLS-1$
         } catch(CoreException ex) {
           log.error("Failed to determine compiler exclusions, assuming defaults", ex);
         }
@@ -181,7 +184,6 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
 //      }
     }
 
-
     assertHasNature(request.getProject(), JavaCore.NATURE_ID);
 
     for(MojoExecution mojoExecution : getMojoExecutions(request, monitor)) {
@@ -196,6 +198,8 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
       }
     }
   }
+
+  @Override
   protected File[] getSourceFolders(ProjectConfigurationRequest request, MojoExecution mojoExecution)
       throws CoreException {
 
