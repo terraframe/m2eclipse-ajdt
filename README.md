@@ -16,7 +16,7 @@ I need this plugin for work stuff and plan to maintain its compatiblity with Ecl
 If you find this plugin useful, you are free to use and distribute it according to the original license.
 
 ## Build
-Use Java version 11 or later to build this plugin.
+Use Java version 11 to build this plugin (if you use other version, build will fail because MANIFEST.MF has required version set to JavaSE-11)
 ```sh
 mvn clean package
 # or use specific java installation
