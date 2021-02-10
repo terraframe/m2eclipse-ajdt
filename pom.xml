@@ -52,7 +52,7 @@
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/joker1/m2eclipse-ajdt</developerConnection>
-		<connection>https://github.com/joker1/m2eclipse-ajdt.git</connection>
+		<connection>scm:git:https://github.com/joker1/m2eclipse-ajdt.git</connection>
 		<url>https://github.com/joker1/m2eclipse-ajdt.git</url>
 		<tag>m2eclipse-ajdt-0.14.1-SNAPSHOT</tag>
   </scm>
