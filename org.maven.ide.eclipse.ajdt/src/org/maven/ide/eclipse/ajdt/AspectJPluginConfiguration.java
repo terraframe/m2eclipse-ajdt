@@ -22,15 +22,15 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * AspectJ plugin configuration accessor 
- * 
+ * AspectJ plugin configuration accessor
+ *
  * <pre>
  * &lt;plugin&gt;
      &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-     &lt;artifactId&gt;aspectj-maven-plugin&lt;/artifactId&gt; 
+     &lt;artifactId&gt;aspectj-maven-plugin&lt;/artifactId&gt;
      &lt;version&gt;1.0-beta-4-20080124.150437-6&lt;/version&gt;
      &lt;executions&gt;
-       &lt;execution&gt; 
+       &lt;execution&gt;
          &lt;phase&gt;process-classes&lt;/phase&gt;
          &lt;goals&gt;
            &lt;goal&gt;compile&lt;/goal&gt;
@@ -50,15 +50,15 @@ import org.slf4j.LoggerFactory;
      &lt;/configuration&gt;
    &lt;/plugin&gt;
  * </pre>
- * 
- * @see http://mojo.codehaus.org/aspectj-maven-plugin/compile-mojo.html
+ *
+ * @see "http://mojo.codehaus.org/aspectj-maven-plugin/compile-mojo.html"
  * @author Igor Fedorenko
  * @author Eugene Kuleshov
  */
 class AspectJPluginConfiguration {
-  
+
   private static final Logger LOGGER = LoggerFactory.getLogger(AspectJPluginConfiguration.class);
-  
+
   Plugin plugin;
 
   AspectJPluginConfiguration(Plugin plugin) {
@@ -68,7 +68,7 @@ class AspectJPluginConfiguration {
   public Set<String> getAspectLibraries() {
     return getModules("aspectLibraries", "aspectLibrary");
   }
-  
+
   public Set<String> getInpathDependencies() {
     return getModules("weaveDependencies", "weaveDependency");
   }
@@ -95,7 +95,7 @@ class AspectJPluginConfiguration {
     }
     return element.getValue();
   }
-  
+
   private void collectModules(Set<String> result, Xpp3Dom dom, String names, String name) {
     if (dom == null) {
       return;
@@ -105,7 +105,7 @@ class AspectJPluginConfiguration {
     if (aspectLibraries == null) {
       return;
     }
-    
+
     Xpp3Dom[] aspectLibrary = aspectLibraries.getChildren(name);
     if (aspectLibrary == null) {
       return;
@@ -125,7 +125,7 @@ class AspectJPluginConfiguration {
       result.add(groupId + ":" + artifactId);
     }
   }
-  
+
   static boolean isAspectJProject(MavenProject mavenProject, IProject project) {
     Plugin plugin = getAspectJPlugin(mavenProject);
 
@@ -140,7 +140,7 @@ class AspectJPluginConfiguration {
     }
     return null;
   }
-  
+
   private static Plugin getAspectJPlugin(MavenProject mavenProject) {
     for(String groupId: AjdtProjectConfigurator.COMPILER_PLUGIN_GROUP_IDS) {
       Plugin plugin = mavenProject.getPlugin(groupId + ":" + AjdtProjectConfigurator.COMPILER_PLUGIN_ARTIFACT_ID);

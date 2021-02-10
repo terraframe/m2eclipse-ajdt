@@ -119,7 +119,6 @@
 				<configuration>
 					<resolver>p2</resolver>
 					<includePackedArtifacts>true</includePackedArtifacts>
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 					<environments>
 						<environment>
 							<os>win32</os>
@@ -145,8 +144,9 @@
 				<version>3.8.1</version>
 				<configuration>
 					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.11</source>
+					<target>1.11</target>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<plugin>
