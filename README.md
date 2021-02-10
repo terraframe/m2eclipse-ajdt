@@ -30,6 +30,7 @@ Execute integration tests with following command.
 ```sh
 mvn clean integration-test
 ```
+Integration test will launch eclipse instance and this process takes a while but should complete successfully.
 
 ## Release process
 Create new release by executing:
