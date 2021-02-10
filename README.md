@@ -35,7 +35,7 @@ mvn clean integration-test
 Create new release by executing:
 ```sh
 # Prepare release
-mvn release:prepare -DreleaseVersion=0.14.1 -Dtag=m2eclipse-ajdt-0.14.1 -DdevelopmentVersion=0.14.2-SNAPSHOT
+mvn release:prepare -DreleaseVersion=0.14.2 -Dtag=m2eclipse-ajdt-0.14.2 -DdevelopmentVersion=0.14.3-SNAPSHOT
 
 # Perform release
 mvn release:perform -Dgoals="clean install"
