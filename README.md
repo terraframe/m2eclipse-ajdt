@@ -47,6 +47,6 @@ mvn release:perform -Dgoals="clean install"
 ## Installation
 You can install this m2e connector to eclipse by selecting Help -> Install new software... -> Add
 
-Eclipse update site URL: https://repo.t5.fi/public/eclipse/m2eclipse-ajdt/eclipse-2020-12
+Eclipse update site URL: https://repo.t5.fi/public/eclipse/m2eclipse-ajdt/eclipse-2020-12/
 
 This update site is provided on best-effort basis but we do use it internally and availability is generally good.
