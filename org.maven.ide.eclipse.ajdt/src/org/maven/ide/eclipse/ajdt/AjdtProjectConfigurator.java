@@ -56,7 +56,7 @@ public class AjdtProjectConfigurator extends AbstractJavaProjectConfigurator {
   public static final String COMPILER_PLUGIN_ARTIFACT_ID = "aspectj-maven-plugin";
 
   public static final List<String> COMPILER_PLUGIN_GROUP_IDS = Arrays.asList("org.codehaus.mojo", "com.nickwongdev",
-      "com.github.m50d", "se.haleby.aspectj", "io.starter");
+      "com.github.m50d", "se.haleby.aspectj", "io.starter", "dev.aspectj");
 
   protected static final List<String> SOURCES = Arrays.asList("1.1,1.2,1.3,1.4,1.5,5,1.6,6,1.7,7".split(",")); //$NON-NLS-1$ //$NON-NLS-2$
 
