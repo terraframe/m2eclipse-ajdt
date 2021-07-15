@@ -9,7 +9,7 @@
 
 	<groupId>org.maven.ide.eclipse.ajdt</groupId>
 	<artifactId>org.maven.ide.eclipse.ajdt.parent</artifactId>
-	<version>0.14.2-SNAPSHOT</version>
+	<version>0.14.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Maven Integration for Eclipse AJDT (Parent)</name>
@@ -52,9 +52,7 @@
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/joker1/m2eclipse-ajdt</developerConnection>
-		<connection>scm:git:https://github.com/joker1/m2eclipse-ajdt.git</connection>
-		<url>https://github.com/joker1/m2eclipse-ajdt.git</url>
-		<tag>m2eclipse-ajdt-0.14.1-SNAPSHOT</tag>
+		<tag>HEAD</tag>
   </scm>
 
 	<properties>
