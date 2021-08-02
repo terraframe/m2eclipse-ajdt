@@ -37,7 +37,7 @@ Integration test will launch eclipse instance and this process takes a while but
 Create new release by executing:
 ```sh
 # Prepare release
-mvn release:prepare -DreleaseVersion=0.14.3 -Dtag=m2eclipse-ajdt-0.14.3 -DdevelopmentVersion=0.14.4-SNAPSHOT
+mvn release:prepare -DreleaseVersion=0.14.4 -Dtag=m2eclipse-ajdt-0.14.4 -DdevelopmentVersion=0.14.5-SNAPSHOT
 
 # Perform release
 mvn release:perform -Dgoals="clean install"
