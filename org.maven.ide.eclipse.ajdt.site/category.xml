@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="https://github.com/joker1/m2eclipse-ajdt">
+     M2Eclipse AJDT Configurator
+   </description>
+   <feature url="features/org.maven.ide.eclipse.ajdt.feature_0.14.5.qualifier.jar" id="org.maven.ide.eclipse.ajdt.feature" version="0.14.5.qualifier">
+      <category name="org.eclipse.m2e.ajdt.feature"/>
+   </feature>
+   <category-def name="org.eclipse.m2e.ajdt.feature" label="AJDT M2E configurator"/>
+   
+</site>

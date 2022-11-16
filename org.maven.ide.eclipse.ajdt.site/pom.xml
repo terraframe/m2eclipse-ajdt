@@ -7,14 +7,20 @@
         <relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<packaging>eclipse-update-site</packaging>
+	<packaging>eclipse-repository</packaging>
 	
 	<groupId>org.maven.ide.eclipse.ajdt.site</groupId>
 	<artifactId>org.maven.ide.eclipse.ajdt.site</artifactId>
+	<name>M2Eclipse AJDT Configurator Update Site</name>
 
 	<properties>
 		<dist.accessKey>${accessKey}</dist.accessKey>
 		<dist.secretKey>${secretKey}</dist.secretKey>
+		
+		<update.site.name>M2E AJDT Configurator</update.site.name>
+    <update.site.description>Eclipse</update.site.description>
+    <update.site.version>${qualifiedVersion}</update.site.version>
+    <update.site.category>org.maven.ide.eclipse.ajdt</update.site.category>
 	</properties>  
 
 	<build>
@@ -37,116 +43,8 @@
 					<artifactRepositoryName>Maven Integration for Eclipse Settings</artifactRepositoryName>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>upload-site</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>3.0.0</version>
-						<executions>
-							<execution>
-								<id>upload-dist</id>
-								<phase>deploy</phase>
-								<configuration>
-									<target>
-										<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
-										<taskdef resource="org/springframework/build/aws/ant/antlib.xml" />
-										<s3 accessKey="${dist.accessKey}" secretKey="${dist.secretKey}">
-											<delete bucketName="${dist.bucket}">
-												<fileset dir="${dist.path}">
-													<include name="site.xml" />
-													<include name="content.jar" />
-													<include name="artifacts.jar" />
-													<include name="plugins/**" />
-													<include name="features/**" />
-												</fileset>
-											</delete>
-											<upload bucketName="${dist.bucket}" toDir="${dist.path}" publicRead="true">
-												<fileset dir="${project.build.directory}/site">
-													<include name="**/*" />
-													<include name="**" />
-													<include name="*.zip" />
-												</fileset>
-											</upload>
-										</s3>
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>org.springframework.build</groupId>
-								<artifactId>org.springframework.build.aws.ant</artifactId>
-								<version>3.0.6.RELEASE</version>
-							</dependency>
-							<dependency>
-								<groupId>net.java.dev.jets3t</groupId>
-								<artifactId>jets3t</artifactId>
-								<version>0.9.4</version>
-							</dependency>
-							<dependency>
-								<groupId>ant-contrib</groupId>
-								<artifactId>ant-contrib</artifactId>
-								<version>20020829</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>publish-site</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>maven-upload-plugin</artifactId>
-						<version>0.0.1</version>
-						<executions>
-							<execution>
-								<id>publish-site</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>upload-file</goal>
-								</goals>
-								<configuration>
-									<file>${project.build.directory}/${project.artifactId}-${project.version}-site.zip</file>
-									<serverId>forge-releases</serverId>
-									<repositoryUrl>${m2e.site-compressed}</repositoryUrl>
-									<repositoryPath>m2eclipse-ajdt/${unqualifiedVersion}/N/${unqualifiedVersion}.${buildQualifier}</repositoryPath>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
