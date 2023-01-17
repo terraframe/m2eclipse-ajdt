@@ -20,7 +20,7 @@
 			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
 		</repository>
 		<repository>
-			<id>eclipse-2020-12</id>
+			<id>eclipse-2022-09</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/2022-09</url>
 		</repository>
@@ -32,7 +32,7 @@
 		<repository>
 			<id>ajdt</id>
 			<layout>p2</layout>
-			<url>https://download.eclipse.org/tools/ajdt/410/dev/update</url>
+			<url>https://download.eclipse.org/tools/ajdt/423/dev/update</url>
 		</repository>
 	</repositories>
 
@@ -51,12 +51,12 @@
 	</pluginRepositories>
 
 	<scm>
-		<developerConnection>scm:git:ssh://git@github.com/joker1/m2eclipse-ajdt</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/terraframe/m2eclipse-ajdt</developerConnection>
 		<tag>HEAD</tag>
   </scm>
 
 	<properties>
-		<tycho-version>3.0.0</tycho-version>
+		<tycho-version>3.0.1</tycho-version>
 		<!-- <m2eclipse-core.version>0.10.2.20100623-1649</m2eclipse-core.version> -->
 		<!-- <m2eclipse-core.site>0.10.2/S/${m2eclipse-core.version}</m2eclipse-core.site> -->
 		<!-- <m2e.site-compressed>http://repository.sonatype.org/service/local/repositories/forge-sites/content-compressed/</m2e.site-compressed> -->
@@ -163,8 +163,8 @@
 				<version>3.8.1</version>
 				<configuration>
 					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.11</source>
-					<target>1.11</target>
+					<source>11</source>
+					<target>11</target>
 					<release>11</release>
 				</configuration>
 			</plugin>

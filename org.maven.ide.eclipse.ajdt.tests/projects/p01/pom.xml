@@ -11,7 +11,7 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.9.6</version>
+      <version>1.9.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -23,9 +23,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.nickwongdev</groupId>
-		<artifactId>aspectj-maven-plugin</artifactId>
-		<version>1.12.6</version>
+        <groupId>dev.aspectj</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <version>1.13.1</version>
         <executions>
           <execution>
             <id>compile-aspects</id>
